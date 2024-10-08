@@ -1,8 +1,11 @@
 using System;
 using Scripts.Configs.Level;
 using Scripts.Enemies;
+using Scripts.Player;
+using Scripts.UI.EndScreen;
 using UniRx;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace Scripts.Level {
@@ -10,23 +13,36 @@ namespace Scripts.Level {
         private readonly LevelConfig _levelConfig;
         private readonly LevelTimeManager _levelTimeManager;
         private readonly EnemyManager _enemyManager;
+        private PlayerPresenter _playerPresenter;
+        private EndScreenFactory _endScreenFactory;
         private CompositeDisposable _disposable = new();
 
         private int _currentWave;
         private LevelState _levelState;
 
-        public LevelManager(LevelConfig levelConfig, LevelTimeManager levelTimeManager, EnemyManager enemyManager) {
+        public LevelManager(LevelConfig levelConfig, LevelTimeManager levelTimeManager,
+                            EnemyManager enemyManager, PlayerPresenter playerPresenter, EndScreenFactory endScreenFactory) {
             _levelConfig = levelConfig;
             _levelTimeManager = levelTimeManager;
             _enemyManager = enemyManager;
+            _playerPresenter = playerPresenter;
+            _endScreenFactory = endScreenFactory;
         }
 
         public void Initialize() {
+            _playerPresenter.OnDeath += OnPlayerDead;
             _levelState = LevelState.WaitingToStart;
             _currentWave = 0;
             _enemyManager.EnemiesCount.Subscribe(OnEnemiesCountChanges).AddTo(_disposable);
             _levelTimeManager.TimeLeft.Subscribe(OnTimeUpdate).AddTo(_disposable);
             StartWave(_levelConfig.Waves[_currentWave]);
+        }
+        
+
+        private void OnPlayerDead()
+        {
+            _playerPresenter.OnDeath -= OnPlayerDead;
+            _endScreenFactory.Create();
         }
 
         private void StartWave(WaveConfig waveConfig) {
@@ -61,6 +77,10 @@ namespace Scripts.Level {
             _currentWave++;
             _currentWave = Mathf.Clamp(_currentWave, 0, _levelConfig.Waves.Count - 1); 
             StartWave(_levelConfig.Waves[_currentWave]);
+        }
+
+        public void ReloadLevel() {
+            SceneManager.LoadScene(0);
         }
 
         public void Dispose() {

@@ -1,8 +1,8 @@
 using Scripts.Configs;
 using Scripts.Enemies;
-using Scripts.GamePlay;
 using Scripts.Level;
 using Scripts.Player;
+using Scripts.UI.EndScreen;
 using Scripts.UI.ScorePanel;
 using Scripts.UI.TimePanel;
 using Scripts.Weapon;
@@ -11,11 +11,11 @@ using Zenject;
 
 namespace Scripts.Installers
 {
-    public class GameInstaller : MonoInstaller
-    {
+    public class GameInstaller : MonoInstaller {
+        [SerializeField] private Canvas _uiCanvas;
+        
         public override void InstallBindings()
         {
-            Container.BindInterfacesAndSelfTo<GameplayController>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<LevelManager>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<LevelTimeManager>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<ScorePanelPresenter>().AsSingle().NonLazy();
@@ -33,6 +33,8 @@ namespace Scripts.Installers
             Container.BindFactory<CreateEnemySettings, EnemyPresenter, EnemyPresenter.Factory>()
                 .FromSubContainerResolve().ByInstaller<EnemyInstaller>();
 
+            Container.Bind<EndScreenView>().FromComponentInNewPrefabResource("EndScreen").UnderTransform(_uiCanvas.transform).AsTransient();
+            Container.BindFactory<EndScreenPresenter, EndScreenFactory>();
         }
     }
 }

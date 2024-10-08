@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterSettings:
     Speed: 3.5
-    Health: 50
+    Health: 1
     Weapons:
     - WeaponView: {fileID: 8276243710747162570, guid: a2fd6cced7355b94b888969003624b94, type: 3}
       CheckRange: 4
-      AttackInterval: 0.1
+      AttackInterval: 1
       Speed: 10
       LifeTime: 5
       Attack: 2

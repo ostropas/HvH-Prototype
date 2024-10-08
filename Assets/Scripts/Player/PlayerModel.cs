@@ -13,6 +13,8 @@ namespace Scripts.Player
         
         public ReactiveProperty<float> Health;
         public ReactiveProperty<int> CurrentScore;
+        
+        public int PreviousMaxScore { get; private set; }
 
         public int MaxScore
         {
@@ -39,7 +41,8 @@ namespace Scripts.Player
                 {
                     Health = new(_characterSettings.Health),
                     CurrentScore = new (),
-                    MaxScore = PlayerPrefs.GetInt(MaxScoreKey, 0)
+                    MaxScore = PlayerPrefs.GetInt(MaxScoreKey, 0),
+                    PreviousMaxScore = PlayerPrefs.GetInt(MaxScoreKey, 0)
                 };
             }
         }
