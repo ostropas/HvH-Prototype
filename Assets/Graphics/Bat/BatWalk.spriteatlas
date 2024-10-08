@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BatWalk
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: f8476aa115991e749893c019eebb7f40, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - 2ab4df90ad2447b48b8ba9173577b12e: 21300000
+    - 5f4eafd02e3166d4986fee9ef5263753: 21300000
+    - 1602cf21aea15914eaf0f265a6e5015d: 21300000
+    - dc44785246388234e93e092d2f60c1a7: 21300000
+    - 88efc3c4beabed14ca5a92978f5b8b2c: 21300000
+    - e69be1d43ef49914597b18b7c9cf418c: 21300000
+    - 5bd395b7219fd4947afa7477e5fc6bbe: 21300000
+    - de86bba8b706a3a41ad7dedd3010aa40: 21300000
+    - 0b7f93e89dcb95042a74b7322555fe0f: 21300000
+    - 0fca64d9b434d264f8eb86a3e39e0fdf: 21300000
+    - 0069455aa2cc0f448a0c34f40b6b3122: 21300000
+    - 4f20d76a23b51274b961f531fdaaee8f: 21300000
+    - e5a9c34c3d8136c4e93fee9fb2c0527b: 21300000
+    - 7e7099ac07c1cbc419ed0b980d6fd1aa: 21300000
+    - de86ab1d4830c824688b958b878ec803: 21300000
+    - c1bf8b9d43627a04d8c2792010a9850d: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: 2ab4df90ad2447b48b8ba9173577b12e, type: 3}
+  - {fileID: 21300000, guid: 5f4eafd02e3166d4986fee9ef5263753, type: 3}
+  - {fileID: 21300000, guid: 1602cf21aea15914eaf0f265a6e5015d, type: 3}
+  - {fileID: 21300000, guid: dc44785246388234e93e092d2f60c1a7, type: 3}
+  - {fileID: 21300000, guid: 88efc3c4beabed14ca5a92978f5b8b2c, type: 3}
+  - {fileID: 21300000, guid: e69be1d43ef49914597b18b7c9cf418c, type: 3}
+  - {fileID: 21300000, guid: 5bd395b7219fd4947afa7477e5fc6bbe, type: 3}
+  - {fileID: 21300000, guid: de86bba8b706a3a41ad7dedd3010aa40, type: 3}
+  - {fileID: 21300000, guid: 0b7f93e89dcb95042a74b7322555fe0f, type: 3}
+  - {fileID: 21300000, guid: 0fca64d9b434d264f8eb86a3e39e0fdf, type: 3}
+  - {fileID: 21300000, guid: 0069455aa2cc0f448a0c34f40b6b3122, type: 3}
+  - {fileID: 21300000, guid: 4f20d76a23b51274b961f531fdaaee8f, type: 3}
+  - {fileID: 21300000, guid: e5a9c34c3d8136c4e93fee9fb2c0527b, type: 3}
+  - {fileID: 21300000, guid: 7e7099ac07c1cbc419ed0b980d6fd1aa, type: 3}
+  - {fileID: 21300000, guid: de86ab1d4830c824688b958b878ec803, type: 3}
+  - {fileID: 21300000, guid: c1bf8b9d43627a04d8c2792010a9850d, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - bat_walk_03
+  - bat_walk_09
+  - bat_walk_16
+  - bat_walk_12
+  - bat_walk_11
+  - bat_walk_08
+  - bat_walk_01
+  - bat_walk_13
+  - bat_walk_10
+  - bat_walk_04
+  - bat_walk_06
+  - bat_walk_14
+  - bat_walk_07
+  - bat_walk_05
+  - bat_walk_02
+  - bat_walk_15
+  m_RenderDataMap: {}
+  m_Tag: BatWalk
+  m_IsVariant: 0

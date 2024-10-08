@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: OgreWalk
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 0cc0d835fd0fa6c4c82b3502471e58e6, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - b588d8c0f8272f74ab208862515c9a1d: 21300000
+    - 5150fbe10cdeb2d45806bb854551d2fa: 21300000
+    - 7672f132765b7ed4facfbcff184c7364: 21300000
+    - 102c0532b810fb24c95718dd452b90d5: 21300000
+    - 3111b5a2779f15641a051eadabbfc24e: 21300000
+    - 97127764b28280b47b18ab12d3b32718: 21300000
+    - eba019b4c0d8a714180c5a8d9fb16fb7: 21300000
+    - 84fd79d4414a3374cb17b5b22af5a7a1: 21300000
+    - ae5501e7e80e32144a5a732e2a8ac5f4: 21300000
+    - 8f85908aeb41a4848a8727b0b5991311: 21300000
+    - 1c43beab9ef48ca4aa19fa23b3ba28b1: 21300000
+    - 3a25c3fb1cb3fdf4bbbd3269fe3396c6: 21300000
+    - 499c6a7c1628f0f48a5247f6db30b6ab: 21300000
+    - 491dc3ec50e73f242836436fe3f067b1: 21300000
+    - 85a5774e085d6ac4792c9b31aafadd5a: 21300000
+    - a0e9e70f1e27f214b8c25ef7110782dd: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: b588d8c0f8272f74ab208862515c9a1d, type: 3}
+  - {fileID: 21300000, guid: 5150fbe10cdeb2d45806bb854551d2fa, type: 3}
+  - {fileID: 21300000, guid: 7672f132765b7ed4facfbcff184c7364, type: 3}
+  - {fileID: 21300000, guid: 102c0532b810fb24c95718dd452b90d5, type: 3}
+  - {fileID: 21300000, guid: 3111b5a2779f15641a051eadabbfc24e, type: 3}
+  - {fileID: 21300000, guid: 97127764b28280b47b18ab12d3b32718, type: 3}
+  - {fileID: 21300000, guid: eba019b4c0d8a714180c5a8d9fb16fb7, type: 3}
+  - {fileID: 21300000, guid: 84fd79d4414a3374cb17b5b22af5a7a1, type: 3}
+  - {fileID: 21300000, guid: ae5501e7e80e32144a5a732e2a8ac5f4, type: 3}
+  - {fileID: 21300000, guid: 8f85908aeb41a4848a8727b0b5991311, type: 3}
+  - {fileID: 21300000, guid: 1c43beab9ef48ca4aa19fa23b3ba28b1, type: 3}
+  - {fileID: 21300000, guid: 3a25c3fb1cb3fdf4bbbd3269fe3396c6, type: 3}
+  - {fileID: 21300000, guid: 499c6a7c1628f0f48a5247f6db30b6ab, type: 3}
+  - {fileID: 21300000, guid: 491dc3ec50e73f242836436fe3f067b1, type: 3}
+  - {fileID: 21300000, guid: 85a5774e085d6ac4792c9b31aafadd5a, type: 3}
+  - {fileID: 21300000, guid: a0e9e70f1e27f214b8c25ef7110782dd, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - ogre_walk_15
+  - ogre_walk_11
+  - ogre_walk_07
+  - ogre_walk_05
+  - ogre_walk_01
+  - ogre_walk_06
+  - ogre_walk_02
+  - ogre_walk_08
+  - ogre_walk_04
+  - ogre_walk_09
+  - ogre_walk_16
+  - ogre_walk_12
+  - ogre_walk_10
+  - ogre_walk_03
+  - ogre_walk_14
+  - ogre_walk_13
+  m_RenderDataMap: {}
+  m_Tag: OgreWalk
+  m_IsVariant: 0
