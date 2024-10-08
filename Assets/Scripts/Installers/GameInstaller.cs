@@ -12,8 +12,6 @@ using Zenject;
 namespace Scripts.Installers
 {
     public class GameInstaller : MonoInstaller {
-        [SerializeField] private Canvas _uiCanvas;
-        
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<LevelManager>().AsSingle().NonLazy();
