@@ -26,7 +26,9 @@ namespace Scripts.Weapon
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-           OnEnemyEnter?.Invoke(this, other.gameObject.GetComponent<EnemyView>()); 
+            if (other.gameObject.CompareTag("enemy")) {
+               OnEnemyEnter?.Invoke(this, other.gameObject.GetComponent<EnemyView>()); 
+            }
         }
     }
 }

@@ -65,7 +65,7 @@ MonoBehaviour:
       OptimalEnemiesCount: 20
     EndlessWave:
       DurationInSeconds: -1
-      OptimalEnemiesCount: 50
-      StrengthOverSecond: 0.01
-      HealthOverSecond: 0.01
-      SpeedOverSecond: 0.01
+      OptimalEnemiesCount: 20
+      StrengthOverSecond: 0.2
+      HealthOverSecond: 0.2
+      SpeedOverSecond: 0.2

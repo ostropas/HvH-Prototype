@@ -29,7 +29,7 @@ namespace Scripts.Enemies
             _model = model;
 
             _view.OnDamage += ApplyDamage;
-            _model.Health.Select(x => x / _enemySettings.Health).Subscribe(_view.UpdateHealth).AddTo(_disposable);
+            _model.Health.Select(x => x / (_enemySettings.Health * _mulSettings.HealthMul)).Subscribe(_view.UpdateHealth).AddTo(_disposable);
         }
 
         public void Tick()

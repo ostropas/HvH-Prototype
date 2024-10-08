@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ship
   - asteroid
+  - enemy
   layers:
   - Default
   - TransparentFX
