@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Scripts.Configs.Level {
+namespace Scripts.Configs {
 	[Serializable]
 	public class LevelConfig {
 		public List<WaveConfig> Waves;
@@ -11,5 +11,8 @@ namespace Scripts.Configs.Level {
 	public class WaveConfig {
 		public int DurationInSeconds;
 		public bool IsEndless;
+		public float SpawnRateOverSecond;
+		public float MinSpawnDelay;
+		public float StrengthOverSecond;
 	}
 }

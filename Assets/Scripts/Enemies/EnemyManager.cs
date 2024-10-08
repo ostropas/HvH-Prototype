@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 
 namespace Scripts.Enemies
 {
-    public class EnemyManager : IInitializable, ITickable, IDisposable
+    public class EnemyManager : IInitializable, ITickable
     {
         private EnemyPresenter.Factory _factory;
         private EnemyManagerSettings _settings;
@@ -20,18 +20,24 @@ namespace Scripts.Enemies
         private int _maxRandomCreateNumber;
         private List<EnemyPresenter> _enemyPresenters = new();
 
-        private CompositeDisposable _disposable = new();
         private bool _isPlaying = true;
 
         public List<EnemyPresenter> Enemies => _enemyPresenters;
         public event Action OnKillEnemy;
 
         public readonly ReactiveProperty<int> EnemiesCount = new();
+
+        private float _minSpawnDelay = 0;
+        private float _spawnDelayIncreasing = 0;
+        private float _currentSpawnDelay;
+        private float _prevSpawnTime = float.MinValue;
+        private bool _isSpawning;
         
         public EnemyManager(EnemyPresenter.Factory factory, EnemyManagerSettings settings, PlayerView player) {
             _factory = factory;
             _settings = settings;
             _player = player;
+            _currentSpawnDelay = settings.DelayBetweenEnemies;
         }
         
         public void Initialize()
@@ -46,21 +52,35 @@ namespace Scripts.Enemies
         }
 
         public void StartInstantiating() {
-            Observable.Interval(TimeSpan.FromSeconds(_settings.DelayBetweenEnemies))
-                .Subscribe(t => CreateEnemy())
-                .AddTo(_disposable);
+            _isSpawning = true;
+        }
+
+        public void SetIncreaseRate(float rateIncreaseOverSecond, float minDelay) {
+           _minSpawnDelay = minDelay; 
+           _spawnDelayIncreasing = rateIncreaseOverSecond;
         }
 
         public void StopInstantiating() {
-           _disposable.Dispose();
-           _disposable = new();
+            _isSpawning = false;
         }
         
         public void Tick() {
             if (!_isPlaying) return;
+
+            if (_isSpawning) {
+                if (Time.time - _prevSpawnTime > _currentSpawnDelay) {
+                    CreateEnemy();
+                    _prevSpawnTime = Time.time;
+                }
+            }
+            
             foreach (EnemyPresenter enemyPresenter in _enemyPresenters)
             {
                 enemyPresenter.Tick();
+            }
+
+            if (_currentSpawnDelay > _minSpawnDelay) {
+                _currentSpawnDelay -= _spawnDelayIncreasing * Time.deltaTime;
             }
         }
 
@@ -106,13 +126,12 @@ namespace Scripts.Enemies
             EnemiesCount.Value = _enemyPresenters.Count;
         }
 
-        public void Dispose()
-        {
-            _disposable?.Dispose();
-        }
-
         public void StopEnemies() {
             _isPlaying = false;
         }
+    }
+
+    public class EnemyEndlessWaveIncreasingValue {
+        public float StrengthMul;
     }
 }

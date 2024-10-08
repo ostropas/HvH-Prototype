@@ -1,5 +1,4 @@
-﻿using Scripts.Configs.Level;
-using Zenject;
+﻿using Zenject;
 
 namespace Scripts.Configs
 {

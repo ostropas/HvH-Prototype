@@ -1,5 +1,5 @@
 using System;
-using Scripts.Configs.Level;
+using Scripts.Configs;
 using Scripts.Enemies;
 using Scripts.Player;
 using Scripts.UI.EndScreen;
@@ -53,6 +53,7 @@ namespace Scripts.Level {
             if (!waveConfig.IsEndless) {
                 _levelTimeManager.StartLevelCountdown(waveConfig.DurationInSeconds);
             } else {
+                _enemyManager.SetIncreaseRate(waveConfig.SpawnRateOverSecond, waveConfig.MinSpawnDelay);
                 _levelTimeManager.StartLevelCountdown(-1);
             }
         }
