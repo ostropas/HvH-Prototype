@@ -33,7 +33,7 @@ namespace Scripts.Installers
             Container.BindFactory<CreateEnemySettings, CreateEnemyMulSettings, EnemyPresenter, EnemyPresenter.Factory>()
                 .FromSubContainerResolve().ByInstaller<EnemyInstaller>();
 
-            Container.Bind<EndScreenView>().FromComponentInNewPrefabResource("EndScreen").UnderTransform(_uiCanvas.transform).AsTransient();
+            Container.Bind<EndScreenView>().FromFactory<EndScreenViewFactory>().AsTransient();
             Container.BindFactory<EndScreenPresenter, EndScreenFactory>();
         }
     }
