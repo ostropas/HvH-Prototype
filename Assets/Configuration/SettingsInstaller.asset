@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterSettings:
     Speed: 3.5
-    Health: 1
+    Health: 10
     Weapons:
     - WeaponView: {fileID: 8276243710747162570, guid: a2fd6cced7355b94b888969003624b94, type: 3}
       CheckRange: 40
