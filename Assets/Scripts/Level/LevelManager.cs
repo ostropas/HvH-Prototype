@@ -84,6 +84,7 @@ namespace Scripts.Level {
         }
 
         private void OnWaveEnd() {
+            _levelState = LevelState.WaitingToStart;
             _currentWave++;
             if (_currentWave >= _levelConfig.Waves.Count) {
                 StartWave(_levelConfig.EndlessWave); 
