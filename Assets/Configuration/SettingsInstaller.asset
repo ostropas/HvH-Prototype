@@ -25,7 +25,7 @@ MonoBehaviour:
     - WeaponView: {fileID: 8276243710747162570, guid: 3244fc692d7565b4585dad837355c52a, type: 3}
       CheckRange: 40
       AttackInterval: 0.6
-      Speed: 20
+      Speed: 10
       LifeTime: 5
       Attack: 3
   EnemyManagerSettings:
