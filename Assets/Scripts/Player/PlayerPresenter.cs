@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Scripts.Configs;
 using Scripts.Enemies;
 using Scripts.Utils;
@@ -22,7 +23,7 @@ namespace Scripts.Player
         
         private CompositeDisposable _disposer = new();
         private bool _isAlive = true;
-        private WeaponPresenter _currentWeapon;
+        private List<WeaponPresenter> _currentWeapons = new();
         
         public PlayerPresenter(Joystick joystick, PlayerView playerView,
             CharacterSettings characterSettings, PlayerModel playerModel,
@@ -42,10 +43,13 @@ namespace Scripts.Player
             _playerModel.Health
                 .Select(x => x / _characterSettings.Health)
                 .Subscribe(_playerView.UpdateHealth).AddTo(_disposer);
-            _currentWeapon = _weaponFactory.Create(_characterSettings.Weapons[0], _playerView.WeaponParent);
+            foreach (Configs.Weapon characterSettingsWeapon in _characterSettings.Weapons) {
+                WeaponPresenter weapon = _weaponFactory.Create(characterSettingsWeapon, _playerView.WeaponParent);
+                _currentWeapons.Add(weapon);
+            }
             _enemyManager.OnKillEnemy += OnKillEnemy;
             _playerView.UpdateWeaponReload(0);
-            _currentWeapon.WeaponAvailable.Subscribe(_playerView.UpdateWeaponReload).AddTo(_disposer);
+            _currentWeapons[0].WeaponAvailable.Subscribe(_playerView.UpdateWeaponReload).AddTo(_disposer);
         }
 
         public Vector2 Position { get => _playerView.Position; set => _playerView.Position = value; }
@@ -74,7 +78,9 @@ namespace Scripts.Player
         public void FixedTick()
         {
             if (!_isAlive) return;
-            _currentWeapon.FixedTick();
+            foreach (WeaponPresenter weaponPresenter in _currentWeapons) {
+                weaponPresenter.FixedTick();
+            }
         }
 
         public void Dispose()
