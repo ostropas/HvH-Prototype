@@ -17,15 +17,15 @@ MonoBehaviour:
     Health: 1
     Weapons:
     - WeaponView: {fileID: 8276243710747162570, guid: a2fd6cced7355b94b888969003624b94, type: 3}
-      CheckRange: 4
-      AttackInterval: 1
+      CheckRange: 40
+      AttackInterval: 0
       Speed: 10
       LifeTime: 5
       Attack: 2
   EnemyManagerSettings:
     MinDistanceFromPlayer: 2.5
     MaxDistanceFromPlayer: 3
-    DelayBetweenEnemies: 0.3
+    RefreshEnemiesCountRate: 2
     EnemiesSettings:
     - EnemyViewPrefab: {fileID: 5111652492338965568, guid: 01f933df4eb2b614b9f4ee7b4a6066ec, type: 3}
       InstantiateWeight: 5
@@ -54,17 +54,20 @@ MonoBehaviour:
   LevelConfig:
     Waves:
     - DurationInSeconds: 5
+      OptimalEnemiesCount: 20
       IsEndless: 0
-      SpawnRateOverSecond: 0
-      MaxSpawnDecreasing: 0
       StrengthOverSecond: 0
+      HealthOverSecond: 0
+      SpeedOverSecond: 0
     - DurationInSeconds: 10
+      OptimalEnemiesCount: 20
       IsEndless: 0
-      SpawnRateOverSecond: 0
-      MaxSpawnDecreasing: 0
       StrengthOverSecond: 0
+      HealthOverSecond: 0
+      SpeedOverSecond: 0
     - DurationInSeconds: 40
+      OptimalEnemiesCount: 50
       IsEndless: 1
-      SpawnRateOverSecond: 0.01
-      MaxSpawnDecreasing: 0.2
       StrengthOverSecond: 0.01
+      HealthOverSecond: 0.01
+      SpeedOverSecond: 0.01

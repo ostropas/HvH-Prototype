@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Scripts.Enemies;
+using UnityEngine.Serialization;
 
 namespace Scripts.Configs
 {
@@ -23,7 +24,9 @@ namespace Scripts.Configs
     }
 
     public class CreateEnemyMulSettings {
-        public float StrengthMul;
+        public float StrengthMul = 1;
+        public float HealthMul = 1;
+        public float SpeedIncrease = 1;
     }
     
 
@@ -32,7 +35,7 @@ namespace Scripts.Configs
     {
         public float MinDistanceFromPlayer;
         public float MaxDistanceFromPlayer;
-        public float DelayBetweenEnemies;
+        public float RefreshEnemiesCountRate;
         public List<CreateEnemySettings> EnemiesSettings;
     }
 }

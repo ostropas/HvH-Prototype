@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using Scripts.Configs;
 using Scripts.Player;
 using Scripts.Utils;
@@ -10,7 +11,7 @@ using Random = UnityEngine.Random;
 
 namespace Scripts.Enemies
 {
-    public class EnemyManager : IInitializable, ITickable
+    public class EnemyManager : IInitializable, ITickable, IDisposable
     {
         private EnemyPresenter.Factory _factory;
         private EnemyManagerSettings _settings;
@@ -20,16 +21,15 @@ namespace Scripts.Enemies
         private int _maxRandomCreateNumber;
         private List<EnemyPresenter> _enemyPresenters = new();
 
+        private CompositeDisposable _disposable = new();
         private bool _isPlaying = true;
 
         public List<EnemyPresenter> Enemies => _enemyPresenters;
         public event Action OnKillEnemy;
 
         public readonly ReactiveProperty<int> EnemiesCount = new();
-
         private EndlessWaveModel _endlessWaveModel;
-        private float _prevSpawnTime = float.MinValue;
-        private bool _isSpawning;
+        private int _optimalEnemiesCount;
         
         public EnemyManager(EnemyPresenter.Factory factory, EnemyManagerSettings settings, PlayerView player) {
             _factory = factory;
@@ -48,35 +48,37 @@ namespace Scripts.Enemies
             }
         }
 
-        public void StartInstantiating() {
-            _isSpawning = true;
+        public void StartInstantiating(int optimalEnemiesCount) {
+            _optimalEnemiesCount = optimalEnemiesCount;
+            Observable.Interval(TimeSpan.FromSeconds(_settings.RefreshEnemiesCountRate))
+                .Subscribe(t => CreateEnemies().Forget())
+                .AddTo(_disposable);
+        }
+
+        public void StopInstantiating() {
+           _disposable.Dispose();
+           _disposable = new();
         }
 
         public void SetEndlessIncereaseVals(EndlessWaveModel endlessWaveModel) {
             _endlessWaveModel = endlessWaveModel;
         }
 
-        public void StopInstantiating() {
-            _isSpawning = false;
-        }
-        
         public void Tick() {
             if (!_isPlaying) return;
-
-            if (_isSpawning) {
-                float spawnDelay = _settings.DelayBetweenEnemies;
-                if (_endlessWaveModel != null) {
-                    spawnDelay -= _endlessWaveModel.DecreaseToSpawnDelay;
-                }
-                if (Time.time - _prevSpawnTime > spawnDelay) {
-                    CreateEnemy();
-                    _prevSpawnTime = Time.time;
-                }
-            }
-            
             foreach (EnemyPresenter enemyPresenter in _enemyPresenters)
             {
                 enemyPresenter.Tick();
+            }
+        }
+
+        private async UniTaskVoid CreateEnemies() {
+            if (_enemyPresenters.Count < _optimalEnemiesCount) {
+                int addEnemies = _optimalEnemiesCount - _enemyPresenters.Count;
+                for (int i = 0; i < addEnemies; i++) {
+                    CreateEnemy(); 
+                    await UniTask.Yield();
+                }
             }
         }
 
@@ -94,9 +96,15 @@ namespace Scripts.Enemies
             }
 
             if (selectedSettings == null) return;
-            EnemyPresenter res = _factory.Create(selectedSettings, new CreateEnemyMulSettings() {
-                StrengthMul = _endlessWaveModel?.CurrentStrengthIncrease ?? 1
-            });
+
+            CreateEnemyMulSettings mulSettings = new();
+            if (_endlessWaveModel != null) {
+                mulSettings.StrengthMul = _endlessWaveModel.CurrentStrengthIncrease;
+                mulSettings.HealthMul = _endlessWaveModel.CurrentHealthIncrease;
+                mulSettings.SpeedIncrease = _endlessWaveModel.CurrentSpeedIncrease;
+            }
+            
+            EnemyPresenter res = _factory.Create(selectedSettings, mulSettings);
             AddEnemy(res);
             res.OnKill += OnEnemyKill;
             float angle = Random.Range(0, 360);
@@ -124,11 +132,16 @@ namespace Scripts.Enemies
             EnemiesCount.Value = _enemyPresenters.Count;
         }
 
+        public void Dispose()
+        {
+            _disposable?.Dispose();
+        }
+
         public void StopEnemies() {
             _isPlaying = false;
         }
     }
-
+    
     public class EnemyEndlessWaveIncreasingValue {
         public float StrengthMul;
     }

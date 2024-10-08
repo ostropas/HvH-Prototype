@@ -19,16 +19,18 @@ namespace Scripts.Enemies
         public class Factory : IFactory<EnemyModel>
         {
             private EnemySettings _enemySettings;
+            private CreateEnemyMulSettings _enemyMulSettings;
 
-            public Factory(EnemySettings enemySettings) {
+            public Factory(EnemySettings enemySettings, CreateEnemyMulSettings enemyMulSettings) {
                 _enemySettings = enemySettings;
+                _enemyMulSettings = enemyMulSettings;
             }
             
             public EnemyModel Create()
             {
                 return new EnemyModel()
                 {
-                    Health = new(_enemySettings.Health)
+                    Health = new(_enemySettings.Health * _enemyMulSettings.HealthMul)
                 };
             }
         }

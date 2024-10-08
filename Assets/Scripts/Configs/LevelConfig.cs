@@ -10,14 +10,16 @@ namespace Scripts.Configs {
 	[Serializable]
 	public class WaveConfig {
 		public int DurationInSeconds;
+		public int OptimalEnemiesCount;
 		public bool IsEndless;
-		public float SpawnRateOverSecond;
-		public float MaxSpawnDecreasing;
 		public float StrengthOverSecond;
+		public float HealthOverSecond;
+		public float SpeedOverSecond;
 	}
 
 	public class EndlessWaveModel {
-		public float DecreaseToSpawnDelay;
-		public float CurrentStrengthIncrease;
+		public float CurrentStrengthIncrease = 1;
+		public float CurrentHealthIncrease = 1;
+		public float CurrentSpeedIncrease = 1;
 	}
 }

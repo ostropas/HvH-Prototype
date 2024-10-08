@@ -52,15 +52,12 @@ namespace Scripts.Level {
         private void StartWave(WaveConfig waveConfig) {
             _currentWaveConfig = waveConfig;
             _levelState = LevelState.WaveInProgress;
-            _enemyManager.StartInstantiating();
+            _enemyManager.StartInstantiating(_currentWaveConfig.OptimalEnemiesCount);
             
             if (!waveConfig.IsEndless) {
                 _levelTimeManager.StartLevelCountdown(waveConfig.DurationInSeconds);
             } else {
-                _endlessWaveModel = new EndlessWaveModel() {
-                    DecreaseToSpawnDelay = 0,
-                    CurrentStrengthIncrease = 1
-                };
+                _endlessWaveModel = new EndlessWaveModel();
                 _enemyManager.SetEndlessIncereaseVals(_endlessWaveModel);
                 _levelTimeManager.StartLevelCountdown(-1);
             }
@@ -98,9 +95,8 @@ namespace Scripts.Level {
         public void Tick() {
             if (_endlessWaveModel != null) {
                 _endlessWaveModel.CurrentStrengthIncrease += _currentWaveConfig.StrengthOverSecond * Time.deltaTime;
-                if (_endlessWaveModel.DecreaseToSpawnDelay < _currentWaveConfig.MaxSpawnDecreasing) {
-                    _endlessWaveModel.DecreaseToSpawnDelay += _currentWaveConfig.SpawnRateOverSecond * Time.deltaTime;
-                }
+                _endlessWaveModel.CurrentHealthIncrease += _currentWaveConfig.HealthOverSecond * Time.deltaTime;
+                _endlessWaveModel.CurrentSpeedIncrease += _currentWaveConfig.SpeedOverSecond * Time.deltaTime;
             }
         }
 

@@ -50,7 +50,7 @@ namespace Scripts.Enemies
             Vector2 distance = _playerPresenter.Position - _view.Position;
             Vector2 direction = distance.normalized;
             _view.LookDirection(direction);
-            _view.Move(direction * _enemySettings.Speed);
+            _view.Move(direction * _enemySettings.Speed * _mulSettings.SpeedIncrease);
             if (distance.magnitude <= _enemySettings.AttackRange)
             {
                 _model.State = EnemyModel.EnemyState.Attack;
