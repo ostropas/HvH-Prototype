@@ -9,13 +9,15 @@ using UnityEngine.SceneManagement;
 using Zenject;
 
 namespace Scripts.Level {
-    public class LevelManager : IInitializable, IDisposable {
+    public class LevelManager : IInitializable, IDisposable, ITickable {
         private readonly LevelConfig _levelConfig;
         private readonly LevelTimeManager _levelTimeManager;
         private readonly EnemyManager _enemyManager;
         private PlayerPresenter _playerPresenter;
         private EndScreenFactory _endScreenFactory;
         private CompositeDisposable _disposable = new();
+        private EndlessWaveModel _endlessWaveModel;
+        private WaveConfig _currentWaveConfig;
 
         private int _currentWave;
         private LevelState _levelState;
@@ -48,12 +50,18 @@ namespace Scripts.Level {
         }
 
         private void StartWave(WaveConfig waveConfig) {
+            _currentWaveConfig = waveConfig;
             _levelState = LevelState.WaveInProgress;
             _enemyManager.StartInstantiating();
+            
             if (!waveConfig.IsEndless) {
                 _levelTimeManager.StartLevelCountdown(waveConfig.DurationInSeconds);
             } else {
-                _enemyManager.SetIncreaseRate(waveConfig.SpawnRateOverSecond, waveConfig.MinSpawnDelay);
+                _endlessWaveModel = new EndlessWaveModel() {
+                    DecreaseToSpawnDelay = 0,
+                    CurrentStrengthIncrease = 1
+                };
+                _enemyManager.SetEndlessIncereaseVals(_endlessWaveModel);
                 _levelTimeManager.StartLevelCountdown(-1);
             }
         }
@@ -84,6 +92,16 @@ namespace Scripts.Level {
 
         public void ReloadLevel() {
             SceneManager.LoadScene(0);
+        }
+        
+
+        public void Tick() {
+            if (_endlessWaveModel != null) {
+                _endlessWaveModel.CurrentStrengthIncrease += _currentWaveConfig.StrengthOverSecond * Time.deltaTime;
+                if (_endlessWaveModel.DecreaseToSpawnDelay < _currentWaveConfig.MaxSpawnDecreasing) {
+                    _endlessWaveModel.DecreaseToSpawnDelay += _currentWaveConfig.SpawnRateOverSecond * Time.deltaTime;
+                }
+            }
         }
 
         public void Dispose() {

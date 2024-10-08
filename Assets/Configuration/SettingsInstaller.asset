@@ -56,15 +56,15 @@ MonoBehaviour:
     - DurationInSeconds: 5
       IsEndless: 0
       SpawnRateOverSecond: 0
-      MinSpawnDelay: 0
+      MaxSpawnDecreasing: 0
       StrengthOverSecond: 0
     - DurationInSeconds: 10
       IsEndless: 0
       SpawnRateOverSecond: 0
-      MinSpawnDelay: 0
+      MaxSpawnDecreasing: 0
       StrengthOverSecond: 0
     - DurationInSeconds: 40
       IsEndless: 1
       SpawnRateOverSecond: 0.01
-      MinSpawnDelay: 0.1
-      StrengthOverSecond: 0
+      MaxSpawnDecreasing: 0.2
+      StrengthOverSecond: 0.01

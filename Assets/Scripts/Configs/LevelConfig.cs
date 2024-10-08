@@ -12,7 +12,12 @@ namespace Scripts.Configs {
 		public int DurationInSeconds;
 		public bool IsEndless;
 		public float SpawnRateOverSecond;
-		public float MinSpawnDelay;
+		public float MaxSpawnDecreasing;
 		public float StrengthOverSecond;
+	}
+
+	public class EndlessWaveModel {
+		public float DecreaseToSpawnDelay;
+		public float CurrentStrengthIncrease;
 	}
 }

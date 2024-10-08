@@ -27,9 +27,7 @@ namespace Scripts.Enemies
 
         public readonly ReactiveProperty<int> EnemiesCount = new();
 
-        private float _minSpawnDelay = 0;
-        private float _spawnDelayIncreasing = 0;
-        private float _currentSpawnDelay;
+        private EndlessWaveModel _endlessWaveModel;
         private float _prevSpawnTime = float.MinValue;
         private bool _isSpawning;
         
@@ -37,7 +35,6 @@ namespace Scripts.Enemies
             _factory = factory;
             _settings = settings;
             _player = player;
-            _currentSpawnDelay = settings.DelayBetweenEnemies;
         }
         
         public void Initialize()
@@ -55,9 +52,8 @@ namespace Scripts.Enemies
             _isSpawning = true;
         }
 
-        public void SetIncreaseRate(float rateIncreaseOverSecond, float minDelay) {
-           _minSpawnDelay = minDelay; 
-           _spawnDelayIncreasing = rateIncreaseOverSecond;
+        public void SetEndlessIncereaseVals(EndlessWaveModel endlessWaveModel) {
+            _endlessWaveModel = endlessWaveModel;
         }
 
         public void StopInstantiating() {
@@ -68,7 +64,11 @@ namespace Scripts.Enemies
             if (!_isPlaying) return;
 
             if (_isSpawning) {
-                if (Time.time - _prevSpawnTime > _currentSpawnDelay) {
+                float spawnDelay = _settings.DelayBetweenEnemies;
+                if (_endlessWaveModel != null) {
+                    spawnDelay -= _endlessWaveModel.DecreaseToSpawnDelay;
+                }
+                if (Time.time - _prevSpawnTime > spawnDelay) {
                     CreateEnemy();
                     _prevSpawnTime = Time.time;
                 }
@@ -77,10 +77,6 @@ namespace Scripts.Enemies
             foreach (EnemyPresenter enemyPresenter in _enemyPresenters)
             {
                 enemyPresenter.Tick();
-            }
-
-            if (_currentSpawnDelay > _minSpawnDelay) {
-                _currentSpawnDelay -= _spawnDelayIncreasing * Time.deltaTime;
             }
         }
 
@@ -98,7 +94,9 @@ namespace Scripts.Enemies
             }
 
             if (selectedSettings == null) return;
-            EnemyPresenter res = _factory.Create(selectedSettings);
+            EnemyPresenter res = _factory.Create(selectedSettings, new CreateEnemyMulSettings() {
+                StrengthMul = _endlessWaveModel?.CurrentStrengthIncrease ?? 1
+            });
             AddEnemy(res);
             res.OnKill += OnEnemyKill;
             float angle = Random.Range(0, 360);

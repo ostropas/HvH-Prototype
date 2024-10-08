@@ -21,6 +21,10 @@ namespace Scripts.Configs
         public int InstantiateWeight;
         public EnemySettings EnemySettings;
     }
+
+    public class CreateEnemyMulSettings {
+        public float StrengthMul;
+    }
     
 
     [Serializable]

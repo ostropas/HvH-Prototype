@@ -30,7 +30,7 @@ namespace Scripts.Installers
             
             Container.BindInterfacesAndSelfTo<EnemyManager>().AsSingle();
             // Create every new enemy in sub container to have shared access between components to settings
-            Container.BindFactory<CreateEnemySettings, EnemyPresenter, EnemyPresenter.Factory>()
+            Container.BindFactory<CreateEnemySettings, CreateEnemyMulSettings, EnemyPresenter, EnemyPresenter.Factory>()
                 .FromSubContainerResolve().ByInstaller<EnemyInstaller>();
 
             Container.Bind<EndScreenView>().FromComponentInNewPrefabResource("EndScreen").UnderTransform(_uiCanvas.transform).AsTransient();

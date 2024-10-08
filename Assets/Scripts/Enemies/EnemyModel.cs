@@ -20,8 +20,7 @@ namespace Scripts.Enemies
         {
             private EnemySettings _enemySettings;
 
-            public Factory(EnemySettings enemySettings)
-            {
+            public Factory(EnemySettings enemySettings) {
                 _enemySettings = enemySettings;
             }
             

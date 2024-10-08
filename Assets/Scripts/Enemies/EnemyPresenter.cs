@@ -17,13 +17,15 @@ namespace Scripts.Enemies
         private readonly EnemySettings _enemySettings;
         private readonly EnemyModel _model;
         private readonly CompositeDisposable _disposable = new();
+        private readonly CreateEnemyMulSettings _mulSettings;
             
         public EnemyPresenter(EnemyView enemyView, PlayerPresenter playerPresenter,
-            EnemyModel model, EnemySettings enemySettings)
+            EnemyModel model, EnemySettings enemySettings, CreateEnemyMulSettings mulSettings)
         {
             _view = enemyView;
             _playerPresenter = playerPresenter;
             _enemySettings = enemySettings;
+            _mulSettings = mulSettings;
             _model = model;
 
             _view.OnDamage += ApplyDamage;
@@ -66,7 +68,7 @@ namespace Scripts.Enemies
 
             if (_model.LastTimeAttack + _enemySettings.AttackInterval < Time.time)
             {
-                _playerPresenter.ApplyDamage(_enemySettings.Attack);
+                _playerPresenter.ApplyDamage(_enemySettings.Attack * _mulSettings.StrengthMul);
                 _model.LastTimeAttack = Time.time;
             }
         }
@@ -96,7 +98,7 @@ namespace Scripts.Enemies
             Object.Destroy(_view.gameObject);
         }
             
-        public class Factory : PlaceholderFactory<CreateEnemySettings, EnemyPresenter>
+        public class Factory : PlaceholderFactory<CreateEnemySettings, CreateEnemyMulSettings, EnemyPresenter>
         {
         }
     }
