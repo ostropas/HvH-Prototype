@@ -42,6 +42,8 @@ namespace Scripts.Level {
         private void OnPlayerDead()
         {
             _playerPresenter.OnDeath -= OnPlayerDead;
+            _levelState = LevelState.PlayerIsDead;
+            _enemyManager.StopEnemies();
             _endScreenFactory.Create();
         }
 
@@ -91,6 +93,7 @@ namespace Scripts.Level {
     public enum LevelState {
         WaitingToStart,
         WaveInProgress,
-        TimeIsOver
+        TimeIsOver,
+        PlayerIsDead
     }
 }

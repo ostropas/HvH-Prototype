@@ -21,6 +21,7 @@ namespace Scripts.Enemies
         private List<EnemyPresenter> _enemyPresenters = new();
 
         private CompositeDisposable _disposable = new();
+        private bool _isPlaying = true;
 
         public List<EnemyPresenter> Enemies => _enemyPresenters;
         public event Action OnKillEnemy;
@@ -55,8 +56,8 @@ namespace Scripts.Enemies
            _disposable = new();
         }
         
-        public void Tick()
-        {
+        public void Tick() {
+            if (!_isPlaying) return;
             foreach (EnemyPresenter enemyPresenter in _enemyPresenters)
             {
                 enemyPresenter.Tick();
@@ -108,6 +109,10 @@ namespace Scripts.Enemies
         public void Dispose()
         {
             _disposable?.Dispose();
+        }
+
+        public void StopEnemies() {
+            _isPlaying = false;
         }
     }
 }
