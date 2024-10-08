@@ -24,6 +24,8 @@ namespace Scripts.Enemies
 
         public List<EnemyPresenter> Enemies => _enemyPresenters;
         public event Action OnKillEnemy;
+
+        public readonly ReactiveProperty<int> EnemiesCount = new();
         
         public EnemyManager(EnemyPresenter.Factory factory, EnemyManagerSettings settings, PlayerView player) {
             _factory = factory;
@@ -93,8 +95,15 @@ namespace Scripts.Enemies
             OnKillEnemy?.Invoke();
         }
 
-        private void AddEnemy(EnemyPresenter enemyPresenter) => _enemyPresenters.Add(enemyPresenter);
-        private void RemoveEnemy(EnemyPresenter enemyPresenter) => _enemyPresenters.Remove(enemyPresenter);
+        private void AddEnemy(EnemyPresenter enemyPresenter) {
+            _enemyPresenters.Add(enemyPresenter);
+            EnemiesCount.Value = _enemyPresenters.Count;
+        }
+
+        private void RemoveEnemy(EnemyPresenter enemyPresenter) {
+            _enemyPresenters.Remove(enemyPresenter);
+            EnemiesCount.Value = _enemyPresenters.Count;
+        }
 
         public void Dispose()
         {
