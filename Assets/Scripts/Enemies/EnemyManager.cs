@@ -24,13 +24,11 @@ namespace Scripts.Enemies
 
         public List<EnemyPresenter> Enemies => _enemyPresenters;
         public event Action OnKillEnemy;
-
-        [Inject]
-        public void Construct(EnemyPresenter.Factory factory, EnemyManagerSettings settings, PlayerView playerView)
-        {
+        
+        public EnemyManager(EnemyPresenter.Factory factory, EnemyManagerSettings settings, PlayerView player) {
             _factory = factory;
             _settings = settings;
-            _player = playerView;
+            _player = player;
         }
         
         public void Initialize()
@@ -42,10 +40,17 @@ namespace Scripts.Enemies
                 _maxRandomCreateNumber += createEnemySettings.InstantiateWeight;
                 _enemiesCreateDictionary[_maxRandomCreateNumber] = createEnemySettings;
             }
+        }
 
+        public void StartInstantiating() {
             Observable.Interval(TimeSpan.FromSeconds(_settings.DelayBetweenEnemies))
                 .Subscribe(t => CreateEnemy())
                 .AddTo(_disposable);
+        }
+
+        public void StopInstantiating() {
+           _disposable.Dispose();
+           _disposable = new();
         }
         
         public void Tick()

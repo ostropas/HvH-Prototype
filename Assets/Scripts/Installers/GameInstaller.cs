@@ -1,8 +1,10 @@
 using Scripts.Configs;
 using Scripts.Enemies;
 using Scripts.GamePlay;
+using Scripts.Level;
 using Scripts.Player;
 using Scripts.UI.ScorePanel;
+using Scripts.UI.TimePanel;
 using Scripts.Weapon;
 using UnityEngine;
 using Zenject;
@@ -14,7 +16,10 @@ namespace Scripts.Installers
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<GameplayController>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<LevelManager>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<LevelTimeManager>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<ScorePanelPresenter>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<TimePanelPresenter>().AsSingle().NonLazy();
             
             Container.Bind<PlayerModel>().FromFactory<PlayerModel.Factory>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerPresenter>().AsSingle().NonLazy();

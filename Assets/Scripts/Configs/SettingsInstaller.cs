@@ -1,4 +1,5 @@
-﻿using Zenject;
+﻿using Scripts.Configs.Level;
+using Zenject;
 
 namespace Scripts.Configs
 {
@@ -6,12 +7,14 @@ namespace Scripts.Configs
     public class SettingsInstaller : ScriptableObjectInstaller<SettingsInstaller>
     {
         public CharacterSettings CharacterSettings;
-        public EnemyManagerSettings EnemyManagerSettings; 
+        public EnemyManagerSettings EnemyManagerSettings;
+        public LevelConfig LevelConfig;
         
         public override void InstallBindings()
         {
             Container.BindInstance(CharacterSettings);
             Container.BindInstance(EnemyManagerSettings);
+            Container.BindInstance(LevelConfig);
         }
     }
 }

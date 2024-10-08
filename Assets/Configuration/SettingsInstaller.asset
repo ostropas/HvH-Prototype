@@ -51,3 +51,11 @@ MonoBehaviour:
         AttackInterval: 0.5
         Attack: 2
         Health: 7
+  LevelConfig:
+    Waves:
+    - DurationInSeconds: 20
+      IsEndless: 0
+    - DurationInSeconds: 40
+      IsEndless: 0
+    - DurationInSeconds: 40
+      IsEndless: 1
