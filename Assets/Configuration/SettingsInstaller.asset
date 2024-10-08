@@ -43,3 +43,11 @@ MonoBehaviour:
         AttackInterval: 0.5
         Attack: 5
         Health: 10
+    - EnemyViewPrefab: {fileID: 4656228118231909622, guid: 8b77a2cce4ab9be43b59db66989d7cd6, type: 3}
+      InstantiateWeight: 3
+      EnemySettings:
+        Speed: 0.5
+        AttackRange: 1
+        AttackInterval: 0.5
+        Attack: 2
+        Health: 7
