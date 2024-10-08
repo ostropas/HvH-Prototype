@@ -18,7 +18,7 @@ MonoBehaviour:
     Weapons:
     - WeaponView: {fileID: 8276243710747162570, guid: a2fd6cced7355b94b888969003624b94, type: 3}
       CheckRange: 40
-      AttackInterval: 0
+      AttackInterval: 1
       Speed: 10
       LifeTime: 5
       Attack: 2
@@ -55,19 +55,11 @@ MonoBehaviour:
     Waves:
     - DurationInSeconds: 5
       OptimalEnemiesCount: 20
-      IsEndless: 0
-      StrengthOverSecond: 0
-      HealthOverSecond: 0
-      SpeedOverSecond: 0
     - DurationInSeconds: 10
       OptimalEnemiesCount: 20
-      IsEndless: 0
-      StrengthOverSecond: 0
-      HealthOverSecond: 0
-      SpeedOverSecond: 0
-    - DurationInSeconds: 40
+    EndlessWave:
+      DurationInSeconds: -1
       OptimalEnemiesCount: 50
-      IsEndless: 1
       StrengthOverSecond: 0.01
       HealthOverSecond: 0.01
       SpeedOverSecond: 0.01

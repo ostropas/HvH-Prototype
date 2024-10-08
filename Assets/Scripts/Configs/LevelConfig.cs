@@ -5,13 +5,17 @@ namespace Scripts.Configs {
 	[Serializable]
 	public class LevelConfig {
 		public List<WaveConfig> Waves;
+		public EndlessWaveConfig EndlessWave;
 	}
 
 	[Serializable]
 	public class WaveConfig {
 		public int DurationInSeconds;
 		public int OptimalEnemiesCount;
-		public bool IsEndless;
+	}
+
+	[Serializable]
+	public class EndlessWaveConfig : WaveConfig {
 		public float StrengthOverSecond;
 		public float HealthOverSecond;
 		public float SpeedOverSecond;

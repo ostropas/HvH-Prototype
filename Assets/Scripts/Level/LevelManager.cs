@@ -18,6 +18,7 @@ namespace Scripts.Level {
         private CompositeDisposable _disposable = new();
         private EndlessWaveModel _endlessWaveModel;
         private WaveConfig _currentWaveConfig;
+        private EndlessWaveConfig _endlessWaveConfig; 
 
         private int _currentWave;
         private LevelState _levelState;
@@ -54,12 +55,13 @@ namespace Scripts.Level {
             _levelState = LevelState.WaveInProgress;
             _enemyManager.StartInstantiating(_currentWaveConfig.OptimalEnemiesCount);
             
-            if (!waveConfig.IsEndless) {
-                _levelTimeManager.StartLevelCountdown(waveConfig.DurationInSeconds);
-            } else {
+            if (waveConfig is EndlessWaveConfig endlessWaveConfig) {
                 _endlessWaveModel = new EndlessWaveModel();
+                _endlessWaveConfig = endlessWaveConfig;
                 _enemyManager.SetEndlessIncereaseVals(_endlessWaveModel);
                 _levelTimeManager.StartLevelCountdown(-1);
+            } else {
+                _levelTimeManager.StartLevelCountdown(waveConfig.DurationInSeconds);
             }
         }
 
@@ -83,8 +85,11 @@ namespace Scripts.Level {
 
         private void OnWaveEnd() {
             _currentWave++;
-            _currentWave = Mathf.Clamp(_currentWave, 0, _levelConfig.Waves.Count - 1); 
-            StartWave(_levelConfig.Waves[_currentWave]);
+            if (_currentWave >= _levelConfig.Waves.Count) {
+                StartWave(_levelConfig.EndlessWave); 
+            } else {
+                StartWave(_levelConfig.Waves[_currentWave]);
+            }
         }
 
         public void ReloadLevel() {
@@ -94,9 +99,9 @@ namespace Scripts.Level {
 
         public void Tick() {
             if (_endlessWaveModel != null) {
-                _endlessWaveModel.CurrentStrengthIncrease += _currentWaveConfig.StrengthOverSecond * Time.deltaTime;
-                _endlessWaveModel.CurrentHealthIncrease += _currentWaveConfig.HealthOverSecond * Time.deltaTime;
-                _endlessWaveModel.CurrentSpeedIncrease += _currentWaveConfig.SpeedOverSecond * Time.deltaTime;
+                _endlessWaveModel.CurrentStrengthIncrease += _endlessWaveConfig.StrengthOverSecond * Time.deltaTime;
+                _endlessWaveModel.CurrentHealthIncrease += _endlessWaveConfig.HealthOverSecond * Time.deltaTime;
+                _endlessWaveModel.CurrentSpeedIncrease += _endlessWaveConfig.SpeedOverSecond * Time.deltaTime;
             }
         }
 
